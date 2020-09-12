@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+    <p>#{{ tags }}</p>
+    <ul class="list-group">
+        {% for post in post_list %}
+            <li class="list-group-item"><a href="{% url 'blog:post_detail'  post.id %}">{{ post.title }} </a>
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" height="100">
+                {% endif %}
+                <span style="float: right;">{{ post.created_at }} </span>
+                <span style="float: right;">{{ post.owner }} --- </span>
+                {% if post.owner == user %}
+                    (<a href="{% url 'blog:post_update' post.id %}">Edit</a> |
+                    <a href="{% url 'blog:post_delete' post.id %}">Delete</a>)
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'blog:all' %}">All posts</a>
+{% endblock %}

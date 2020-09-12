@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+  <form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" class="btn btn-success" value="Submit">
+    <input type="submit" class="btn btn-danger" value="Cancel" onclick="window.location.href='{% url 'blog:all' %}';return false;">
+  </form>
+{% endblock %}

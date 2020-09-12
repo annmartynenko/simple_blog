@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+<span style="float: right;">
+(Created at {{ post.created_at }}, updated at {{ post.updated_at }}, publication date {{ post.pub_date }})
+    {% if message.owner == user %}
+    <a href="{% url 'blog:message_update' post.id %}"><i class="fa fa-pencil"></i></a>
+    <a href="{% url 'blog:message_delete' post.id %}"><i class="fa fa-trash"></i></a>
+    {% endif %}
+</span>
+
+        <div class="jumbotron">
+        <div class="media">
+            <div class="media-left">
+            {% if post.image %}
+                <img src="{{ post.image.url }}" height="300" class="media-object">
+            {% endif %}
+            </div>
+            <div class="media-body">
+                <h2>{{ post.title }}</h2>
+                <p>{{ post.text }}</p>
+            </div>
+        </div>
+
+    <ul class="list-inline">
+        {% for tag in tags_list %}
+        <li>
+            <a href="{% url 'blog:tag' tag.id %}">#{{ tag }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+            </div>
+    <p><a href="{% url 'blog:post_connect' post.id %}">Add tag</a></p>
+    <p><a href="{% url 'blog:all' %}">All posts</a></p>
+{% endblock %}
